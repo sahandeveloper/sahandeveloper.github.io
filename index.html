@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="my.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
+  <meta charset="utf-8">
+ 
+</head>
+<body>
+  <div class="s12">
+  <br>SAHANDEVELOPER PROJECT</div>
+  
+  <br>                                                                                      
+  
+  
+    <div class="s11">MIKNATIS YAKINLIK AYARI</div>
+    
+
+  <script>
+let armature;
+let stator;
+let angle = 0;
+let speed = 0.00;
+let speedSlider;
+let bg
+let button;
+let messageSent = false;
+
+function setup() {
+  createCanvas(400, 400);
+  bg = loadImage('dc.png');
+  armature = new Armature(width/2, height/2);
+  stator = new Stator(width/2, height/2);
+
+  speedSlider = createSlider(0, 0.0, 0.00, 0.00);
+  speedSlider.position(350, 100);
+  speedSlider.mousePressed(sendMessage);
+  
+  speedSlider.style('-webkit-appearance', 'none');
+speedSlider.style('appearance', 'none');
+speedSlider.style('width', '300px');
+speedSlider.style('height', '20px');
+speedSlider.style('background', '#ccc');
+speedSlider.style('outline', 'none');
+speedSlider.style('opacity', '0.7');
+speedSlider.style('-webkit-transition', 'opacity .2s');
+speedSlider.style("border-radius", "8px");
+speedSlider.style('transition', 'opacity .2s');
+button = createButton("mıknatısları yerleştir");
+button.style("font-size", "12px");
+  button.style("background-color", "#ccc");
+  button.style("color", "black");
+  button.style("padding", "12px");
+  button.style("border-radius", "8px");
+  button.style('transition', 'opacity .20s');
+  button.position(440, 195);
+  button.mousePressed(changeBackground);
+}
+function sendMessage() {
+  if (!messageSent) {
+    alert("Mıknatıs olmadan nasıl mıknatıs yakınlığını ayarlayacaksın?");
+    messageSent = true;
+  }
+}
+
+function changeBackground() {
+  background(bg);
+  speedSlider.remove();
+  button.remove();
+  speedSlider = createSlider(0, 0.5, 0.05, 0.01);
+  speedSlider.position(350, 100);
+  
+  speedSlider.style('-webkit-appearance', 'none');
+speedSlider.style('appearance', 'none');
+speedSlider.style('width', '300px');
+speedSlider.style('height', '20px');
+speedSlider.style('background', '#ccc');
+speedSlider.style('outline', 'none');
+speedSlider.style('opacity', '0.7');
+speedSlider.style("border-radius", "8px");
+speedSlider.style('-webkit-transition', 'opacity .2s');
+speedSlider.style('transition', 'opacity .2s');
+
+}
+
+function draw() {
+  stator.display();
+  speed = speedSlider.value();
+  armature.rotate(angle);
+  armature.display();
+  angle += speed;
+}
+
+
+
+
+class Armature {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.radius = 50;
+    this.coilColor = color(1);
+    this.rotorColor = color(0);
+  }
+
+  rotate(angle) {
+    this.angle = angle;
+  }
+
+  display() {
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle);
+    fill(this.coilColor);
+    ellipse(0, -this.radius/2, this.radius/2, this.radius);
+    ellipse(0, this.radius/2, this.radius/2, this.radius);
+    fill(this.rotorColor);
+    rect(-this.radius/4, -this.radius, this.radius/2, this.radius*2);
+    pop();
+  }
+}
+
+class Stator {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.radius = 60;
+    this.color = color(200);
+  }
+
+  display() {
+    push();
+    translate(this.x, this.y);
+    fill(this.color);
+    ellipse(0, 0, this.radius*2, this.radius*2);
+    pop();
+  }
+}
+
+  </script>
+  
+  <br>
+  <br>
+  <div class="s13"><p>Motorun içinde yer alan sargılara elektrik akımı uygulandığında, yine motorun içerisinde bulunan sabit mıknatıslara zıt yönde oluşan manyetik kuvvetin etkisi ile hareket etme prensibine dayanır.</p></div>
+
+</body>
+</html>
